@@ -215,11 +215,32 @@ public class TravelAlgorithm {
     TIME[2][5][4] = 264;
   }
 
+  private static int i,j,k; //counter
+
   protected static int[][] fastestByPublic(int[] destinationsQueue) {
     //TODO: find fastest by public transport and return a 2d array describing
     //the trip. the child array will always have 3 members: first is method (0),
     //second is from, third is to.
-    return new int[][]{{}};
+    int[] destinations = new int[destinationsQueue.length + 1];
+    destinations[0] = 0;
+    for (i = 1; i < destinations.length; i++) {
+      destinations[i] = destinationsQueue[i-1];
+    }
+
+    int[][] result = new int[destinations.length][3];
+    int min, temp;
+    for (i = 0; i < destinations.length - 1; i++) {
+      min = i+1;
+      for (j = min; j < destinations.length; j++) {
+        if ( TIME[0][destinations[i]][destinations[j]] < TIME[0][destinations[i]][destinations[min]] ) min = j;
+      }
+      temp = destinations[min];
+      destinations[min] = destinations[i+1];
+      destinations[i+1] = temp;
+      result[i] = new int[]{0, destinations[i], destinations[i+1]};
+    }
+    result[destinations.length - 1] = new int[]{0, destinations[destinations.length-1], destinations[0]};
+    return result;
   }
 
   protected static double totalCost(int[][] currentTrip) {
@@ -251,9 +272,9 @@ public class TravelAlgorithm {
 
   protected static void test() {
     int[] testUserInput = new int[]{3, 1, 5};
-    int[][] testTrip = new int[][]{{0,1,3},{0,3,5},{0,5,1}};
-    System.out.println("fastestByPublic returns correct array of fastest router by public transport: " + Arrays.equals( fastestByPublic(testUserInput), testTrip ) );
-    System.out.println("totalCost returns correct total amount: " + (totalCost(testTrip) == 7.98) );
+    int[][] testTrip = new int[][]{{0,0,1},{0,1,3},{0,3,5},{0,5,0}};
+    System.out.println("fastestByPublic returns correct array of fastest router by public transport: " + Arrays.deepEquals( fastestByPublic(testUserInput), testTrip ) );
+    System.out.println("totalCost returns correct total amount: " + (totalCost(testTrip) == 8.73) );
     int[][] notOptimalTrip = new int[][]{{0,1,2},{0,2,3},{0,3,1}};
     System.out.println("flipToTaxi returns correct new trip: " + Arrays.deepEquals( flipToTaxi(notOptimalTrip, 20), new int[][]{{0,1,2},{0,2,3},{1,3,1}} ) );
     System.out.println("flipToFoot returns correct new trip: " + Arrays.deepEquals( flipToFoot(notOptimalTrip, 1.8), new int[][]{{0,1,2},{2,2,3},{2,3,1}} ) );
