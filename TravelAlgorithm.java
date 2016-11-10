@@ -4,24 +4,24 @@ import java.io.*;
 public class TravelAlgorithm {
   //diamond code the data in
   //assign each location to a unique number
-  final private HashMap<String, Integer> DESTINATIONS = new HashMap<String, Integer>();
+  final static private String[] DESTINATIONS = new String[6];
   static {
-    DESTINATIONS.put("Marina Bay Sands", 0);
-    DESTINATIONS.put("Singapore Flyer", 1);
-    DESTINATIONS.put("Vivo City", 2);
-    DESTINATIONS.put("Resorts World Sentosa", 3);
-    DESTINATIONS.put("Buddha Tooth Relic Temple", 4);
-    DESTINATIONS.put("Zoo", 5);
+    DESTINATIONS[0] = "Marina Bay Sands";
+    DESTINATIONS[1] = "Singapore Flyer";
+    DESTINATIONS[2] = "Vivo City";
+    DESTINATIONS[3] = "Resorts World Sentosa";
+    DESTINATIONS[4] = "Buddha Tooth Relic Temple";
+    DESTINATIONS[5] = "Zoo";
   }
-  final private int mNoOfDestinations = DESTINATIONS.size();
+  final static private int mNoOfDestinations = DESTINATIONS.length;
 
   //arrays of cost and time taken
   //outer most array index: 1 is public transport, 2 is taxi, 3 is foot
   //second layer of array determines the starting point (from)
   //third layer of array determines the end point (to)
-  final private double[][][] COST = new double[3][mNoOfDestinations][mNoOfDestinations];
+  final static private double[][][] COST = new double[3][mNoOfDestinations][mNoOfDestinations];
   static {
-    //public transport
+    //public transports
     //from MBS
     COST[0][0][1] = 0.83;
     COST[0][0][2] = 1.18;
@@ -101,7 +101,7 @@ public class TravelAlgorithm {
   }
 
   //same structure as cost
-  final private int[][][] TIME = new int[3][mNoOfDestinations][mNoOfDestinations];
+  final static private int[][][] TIME = new int[3][mNoOfDestinations][mNoOfDestinations];
   static {
     //public
     TIME[0][0][1] = 17;
@@ -215,7 +215,50 @@ public class TravelAlgorithm {
     TIME[2][5][4] = 264;
   }
 
-  public static void main(String[] args) {
+  protected static int[][] fastestByPublic(int[] destinationsQueue) {
+    //TODO: find fastest by public transport and return a 2d array describing
+    //the trip. the child array will always have 3 members: first is method,
+    //second is from, third is to.
+    return new int[][]{{}};
+  }
 
+  protected static double totalCost(int[][] currentTrip) {
+    double result = 0;
+    for ( int[] t : currentTrip) {
+      result += COST[t[0]][t[1]][t[2]];
+    }
+    return result;
+  }
+
+  protected static int[][] flipToTaxi(int[][] currentTrip) {
+    //TODO: return the new trip with the make-most-sense route flipped to taxi
+    //measured by minutes saved per extra dollar
+    return new int[][]{{}};
+  }
+
+  protected static int[][] flipToFoot(int[][] currentTrip) {
+    //TODO: return the new trip with the make-most-sense route flipped to foot
+    //measured by dollar saved per extra minute
+    return new int[][]{{}};
+  }
+
+  protected static int[][] getMostOptimalTrip(int[] destinationsQueue, double budget) {
+    //TODO: return the most optimal trip - final result of this algorithm
+    return new int[][]{{}};
+  }
+
+  protected static void test() {
+    int[] testUserInput = new int[]{3, 1, 5};
+    int[][] testTrip = new int[][]{{0,1,3},{0,3,5},{0,5,1}};
+    System.out.println("fastestByPublic returns correct array of fastest router by public transport: " + Arrays.equals( fastestByPublic(testUserInput), testTrip ) );
+    System.out.println("totalCost returns correct total amount: " + (totalCost(testTrip) == 7.98) );
+    int[][] notOptimalTrip = new int[][]{{0,1,2},{0,2,3},{0,3,1}};
+    System.out.println("flipToTaxi returns correct new trip: " + Arrays.deepEquals( flipToTaxi(notOptimalTrip), new int[][]{{0,1,2},{0,2,3},{1,3,1}} ) );
+    System.out.println("flipToFoot returns correct new trip: " + Arrays.deepEquals( flipToFoot(notOptimalTrip), new int[][]{{0,1,2},{2,2,3},{0,3,1}} ) );
+    System.out.println("getMostOptimalTrip returns correct new trip: " + Arrays.deepEquals( getMostOptimalTrip(new int[]{2,3,1}, 20), new int[][]{{1,1,2},{0,2,3},{1,3,1}} ) );
+  }
+
+  public static void main(String[] args) {
+    test();
   }
 }
