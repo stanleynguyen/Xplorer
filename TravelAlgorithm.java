@@ -315,7 +315,12 @@ public class TravelAlgorithm {
 
   protected static int[][] getMostOptimalTrip(int[] destinationsQueue, double budget) {
     //TODO: return the most optimal trip - final result of this algorithm
-    return new int[][]{{}};
+    int[][] publicTransportTrip = fastestByPublic(destinationsQueue);
+    int[][] optimizedTrip;
+    if (totalCost(publicTransportTrip) > budget) optimizedTrip = flipToFoot(publicTransportTrip, budget);
+    else if (totalCost(publicTransportTrip) < budget) optimizedTrip = flipToTaxi(publicTransportTrip, budget);
+    else optimizedTrip = publicTransportTrip;
+    return optimizedTrip;
   }
 
   protected static void test() {
