@@ -252,9 +252,6 @@ public class TravelAlgorithm {
   }
 
   protected static int[][] flipToTaxi(int[][] currentTrip, double budget) {
-    //TODO: return the new trip from the make-most-sense to the make-least-sense
-    // routes flipped to taxi measured by minutes saved per extra dollar
-    //keep it within budget
     double[] effArray = new double[currentTrip.length];
     HashMap<Double, Integer> effMap = new HashMap<Double, Integer>();
     for (i = 0; i < currentTrip.length; i++) {
@@ -275,7 +272,6 @@ public class TravelAlgorithm {
     i = effArray.length - 1;
     while ( totalCost(newTrip) < budget ) {
       currentTrip = twoDclone(newTrip);
-      newTrip = twoDclone(currentTrip);
       newTrip[effFlips[i]][0] = 1;
       i--;
     }
@@ -283,10 +279,30 @@ public class TravelAlgorithm {
   }
 
   protected static int[][] flipToFoot(int[][] currentTrip, double budget) {
-    //TODO: return the new trip from the make-most-sense to the make-least-sense
-    // routes flipped to foot measured by dollar saved per extra minute
-    //keep it just right within budget, not going to far
-    return new int[][]{{}};
+    double[] effArray = new double[currentTrip.length];
+    HashMap<Double, Integer> effMap = new HashMap<Double, Integer>();
+    for (i = 0; i < currentTrip.length; i++) {
+      double timeDiff = TIME[2][currentTrip[i][1]][currentTrip[i][2]] - TIME[0][currentTrip[i][1]][currentTrip[i][2]];
+      double moneyDiff = COST[0][currentTrip[i][1]][currentTrip[i][2]];
+      double efficiency = moneyDiff / timeDiff;
+      effArray[i] = efficiency;
+      effMap.put(efficiency, i);
+    }
+
+    Arrays.sort(effArray);
+    int[] effFlips = new int[currentTrip.length];
+    for (i = 0; i < effArray.length; i++) {
+      effFlips[i] = effMap.get(effArray[i]);
+    }
+
+    int[][] newTrip = twoDclone(currentTrip);
+    i = currentTrip.length - 1;
+    while ( totalCost(newTrip) > budget ) {
+      newTrip[effFlips[i]][0] = 2;
+      currentTrip = twoDclone(newTrip);
+      i--;
+    }
+    return currentTrip;
   }
 
   protected static int[][] getMostOptimalTrip(int[] destinationsQueue, double budget) {
