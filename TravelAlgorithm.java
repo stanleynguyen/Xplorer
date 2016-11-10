@@ -218,7 +218,7 @@ public class TravelAlgorithm {
   private static int i,j,k; //counter
 
   protected static int[][] fastestByPublic(int[] destinationsQueue) {
-    //TODO: find fastest by public transport and return a 2d array describing
+    //find fastest by public transport and return a 2d array describing
     //the trip. the child array will always have 3 members: first is method (0),
     //second is from, third is to.
     int[] destinations = new int[destinationsQueue.length + 1];
@@ -252,12 +252,16 @@ public class TravelAlgorithm {
   }
 
   protected static int[][] flipToTaxi(int[][] currentTrip, double budget) {
+    //return the new trip from the make-most-sense to the make-least-sense
+    // routes flipped to taxi measured by minute saved per extra dollar
+    //keep it within budget
     double[] effArray = new double[currentTrip.length];
     HashMap<Double, Integer> effMap = new HashMap<Double, Integer>();
     for (i = 0; i < currentTrip.length; i++) {
       double timeDiff = TIME[0][currentTrip[i][1]][currentTrip[i][2]] - TIME[1][currentTrip[i][1]][currentTrip[i][2]];
       double moneyDiff = COST[1][currentTrip[i][1]][currentTrip[i][2]] - COST[0][currentTrip[i][1]][currentTrip[i][2]];
       double efficiency = timeDiff / moneyDiff;
+      if ( efficiency < 0 ) efficiency *= -1000;
       effArray[i] = efficiency;
       effMap.put(efficiency, i);
     }
@@ -279,12 +283,16 @@ public class TravelAlgorithm {
   }
 
   protected static int[][] flipToFoot(int[][] currentTrip, double budget) {
+    //return the new trip from the make-most-sense to the make-least-sense
+    // routes flipped to foot measured by dollar saved per extra minute
+    //keep it just right within budget, not going to far
     double[] effArray = new double[currentTrip.length];
     HashMap<Double, Integer> effMap = new HashMap<Double, Integer>();
     for (i = 0; i < currentTrip.length; i++) {
       double timeDiff = TIME[2][currentTrip[i][1]][currentTrip[i][2]] - TIME[0][currentTrip[i][1]][currentTrip[i][2]];
       double moneyDiff = COST[0][currentTrip[i][1]][currentTrip[i][2]];
       double efficiency = moneyDiff / timeDiff;
+      if ( efficiency < 0 ) efficiency *= -1000;
       effArray[i] = efficiency;
       effMap.put(efficiency, i);
     }
@@ -311,15 +319,14 @@ public class TravelAlgorithm {
   }
 
   protected static void test() {
-    int[] testUserInput = new int[]{3, 1, 5};
-    int[][] testTrip = new int[][]{{0,0,1},{0,1,3},{0,3,5},{0,5,0}};
+    int[] testUserInput = new int[]{2, 1, 4};
+    int[][] testTrip = new int[][]{{0,0,1},{0,1,4},{0,4,2},{0,2,0}};
     System.out.println("fastestByPublic returns correct array of fastest router by public transport: " + Arrays.deepEquals( fastestByPublic(testUserInput), testTrip ) );
-    System.out.println("totalCost returns correct total amount: " + (totalCost(testTrip) == 8.73) );
-    int[][] notOptimalTrip = new int[][]{{0,1,2},{0,2,3},{0,3,1}};
-    System.out.println("flipToTaxi returns correct new trip: " + Arrays.deepEquals( flipToTaxi(notOptimalTrip, 20), new int[][]{{1,1,2},{0,2,3},{1,3,1}} ) );
-    System.out.println("flipToFoot returns correct new trip: " + Arrays.deepEquals( flipToFoot(notOptimalTrip, 1.8), new int[][]{{0,1,2},{2,2,3},{2,3,1}} ) );
-    System.out.println("getMostOptimalTrip returns correct new trip requiring no foot: " + Arrays.deepEquals( getMostOptimalTrip(new int[]{2,3,1}, 20), new int[][]{{1,1,2},{0,2,3},{1,3,1}} ) );
-    System.out.println("getMostOptimalTrip returns correct new trip requiring foot: " + Arrays.deepEquals( getMostOptimalTrip(new int[]{2,3,1}, 1.8), new int[][]{{0,1,2},{2,2,3},{2,3,1}} ) );
+    System.out.println("totalCost returns correct total amount: " + (totalCost(testTrip) - 3.97 < 0.001 && totalCost(testTrip) - 3.97 > -0.001) );
+    System.out.println("flipToTaxi returns correct new trip: " + Arrays.deepEquals( flipToTaxi(testTrip, 20), new int[][]{{1,0,1},{1,1,4},{1,4,2},{0,2,0}} ) );
+    System.out.println("flipToFoot returns correct new trip: " + Arrays.deepEquals( flipToFoot(testTrip, 1.8), new int[][]{{2,0,1},{2,1,4},{2,4,2},{0,2,0}} ) );
+    System.out.println("getMostOptimalTrip returns correct new trip requiring no foot: " + Arrays.deepEquals( getMostOptimalTrip(testUserInput, 20), new int[][]{{1,0,1},{1,1,4},{1,4,2},{0,2,0}} ) );
+    System.out.println("getMostOptimalTrip returns correct new trip requiring foot: " + Arrays.deepEquals( getMostOptimalTrip(testUserInput, 1.8), new int[][]{{2,0,1},{2,1,4},{2,4,2},{0,2,0}} ) );
   }
 
   public static void main(String[] args) {
