@@ -274,7 +274,8 @@ public class TravelAlgorithm {
 
     int[][] newTrip = twoDclone(currentTrip);
     i = effArray.length - 1;
-    while ( totalCost(newTrip) < budget ) {
+    while ( totalCost(newTrip) < budget && i > -1 ) {
+      currentTrip = twoDclone(newTrip);
       currentTrip = twoDclone(newTrip);
       newTrip[effFlips[i]][0] = 1;
       i--;
