@@ -279,6 +279,7 @@ public class TravelAlgorithm {
       newTrip[effFlips[i]][0] = 1;
       i--;
     }
+    currentTrip = twoDclone(newTrip);
     return currentTrip;
   }
 
@@ -310,6 +311,7 @@ public class TravelAlgorithm {
       currentTrip = twoDclone(newTrip);
       i--;
     }
+    currentTrip = twoDclone(newTrip);
     return currentTrip;
   }
 
