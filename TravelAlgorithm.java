@@ -279,7 +279,7 @@ public class TravelAlgorithm {
       newTrip[effFlips[i]][0] = 1;
       i--;
     }
-    currentTrip = twoDclone(newTrip);
+    if ( totalCost(newTrip) < budget ) currentTrip = twoDclone(newTrip);
     return currentTrip;
   }
 
