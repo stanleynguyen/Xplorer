@@ -311,7 +311,6 @@ public class TravelAlgorithm {
       currentTrip = twoDclone(newTrip);
       i--;
     }
-    currentTrip = twoDclone(newTrip);
     return currentTrip;
   }
 
@@ -334,6 +333,8 @@ public class TravelAlgorithm {
     System.out.println("flipToFoot returns correct new trip: " + Arrays.deepEquals( flipToFoot(testTrip, 1.8), new int[][]{{2,0,1},{2,1,4},{2,4,2},{0,2,0}} ) );
     System.out.println("getMostOptimalTrip returns correct new trip requiring no foot: " + Arrays.deepEquals( getMostOptimalTrip(testUserInput, 20), new int[][]{{1,0,1},{1,1,4},{1,4,2},{0,2,0}} ) );
     System.out.println("getMostOptimalTrip returns correct new trip requiring foot: " + Arrays.deepEquals( getMostOptimalTrip(testUserInput, 1.8), new int[][]{{2,0,1},{2,1,4},{2,4,2},{0,2,0}} ) );
+    System.out.println("getMostOptimalTrip returns correct trip for rich visitor: " + Arrays.deepEquals( getMostOptimalTrip(testUserInput, 50), new int[][]{{1,0,1},{1,1,4},{1,4,2},{1,2,0}} ) );
+    System.out.println("getMostOptimalTrip returns correct trip for poor visitor: " + Arrays.deepEquals( getMostOptimalTrip(testUserInput, 0.5), new int[][]{{2,0,1},{2,1,4},{2,4,2},{2,2,0}} ) );
   }
 
   public static void main(String[] args) {
