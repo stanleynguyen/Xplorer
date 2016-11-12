@@ -15,7 +15,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ChooseDestinationsActivity"></activity>
+        <activity android:name=".ChooseDestinationsActivity" />
+        <activity android:name=".ItineraryPlanActivity" />
+        <activity android:name=".ExpensesManagerActivity"></activity>
     </application>
 
 </manifest>

@@ -18,4 +18,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ChooseDestinationsActivity.class);
         startActivity(intent);
     }
+
+    protected void toExpense(View v) {
+        startActivity(new Intent(this, ExpensesManagerActivity.class));
+    }
 }

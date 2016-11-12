@@ -1,12 +1,14 @@
 package com.example.learningzoo.xplorerapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.CheckedTextView;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -24,12 +26,12 @@ public class ChooseDestinationsActivity extends AppCompatActivity {
     }
     ListView listview;
     String[] places;
-    Context context;
+    EditText budgetField;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_destinations);
-        context = this;
+        budgetField = (EditText)findViewById(R.id.editText);
         listview = (ListView)findViewById(R.id.list_view);
         //string array
         places = Arrays.copyOfRange(DESTINATIONS, 1, DESTINATIONS.length);
@@ -45,9 +47,12 @@ public class ChooseDestinationsActivity extends AppCompatActivity {
         ArrayList<Integer> destinations = new ArrayList<Integer>();
         for (int i = 0; i < places.length; i++) {
             CheckedTextView child = (CheckedTextView) listview.getChildAt(i);
-            if (child.isChecked()) destinations.add(i);
+            if (child.isChecked()) destinations.add(i + 1);
         }
-        Log.d("destinations", destinations.toString());
+        Intent intent = new Intent(this, ItineraryPlanActivity.class);
+        intent.putIntegerArrayListExtra("DESTINATIONS", destinations );
+        intent.putExtra("BUDGET", Double.parseDouble(budgetField.getText().toString()));
+        startActivity(intent);
     }
 
 }

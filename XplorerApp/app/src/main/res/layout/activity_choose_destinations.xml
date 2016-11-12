@@ -9,20 +9,37 @@
     tools:context="com.example.learningzoo.xplorerapp.ChooseDestinationsActivity">
 
 
-    <ListView
-        android:id="@+id/list_view"
-        android:layout_width="match_parent"
-        android:layout_height="450dp" >
-    </ListView>
-
     <Button
         android:text="Plan My Itinerary >>"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/list_view"
-        android:layout_centerHorizontal="true"
         android:id="@+id/button2"
-        android:onClick="planItinerary"/>
+        android:onClick="planItinerary"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="11dp" />
+
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+    </ListView>
+
+    <EditText
+        android:hint="Enter your budget for travelling..."
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="17dp"
+        android:id="@+id/editText" />
 
 
 </RelativeLayout>
