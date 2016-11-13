@@ -1,4 +1,4 @@
-package com.example.learningzoo.xplorerapp;
+package com.example.learningzoo.xplorerapp.activity;
 
 /**
  * Created by stanleynguyen on 13/11/16.

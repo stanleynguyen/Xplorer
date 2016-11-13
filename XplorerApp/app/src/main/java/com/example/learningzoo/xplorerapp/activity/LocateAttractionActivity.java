@@ -1,27 +1,29 @@
-package com.example.learningzoo.xplorerapp;
+package com.example.learningzoo.xplorerapp.activity;
 
 import android.content.Intent;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Toast;
 
+import com.example.learningzoo.xplorerapp.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.TileOverlay;
 
 import java.util.HashMap;
 
-public class LocateAttractionActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class LocateAttractionActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
 
     private GoogleMap gMap;
     private static final String[] ATTRACTIONS = new String[] {
@@ -75,10 +77,22 @@ public class LocateAttractionActivity extends AppCompatActivity implements OnMap
         SNIPPETS.put("MP", "1 Fullerton Rd, Singapore 049213");
     }
 
+    private Toolbar mToolbar;
+    private FragmentDrawer drawerFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_locate_attraction);
+        mToolbar = (Toolbar)findViewById(R.id.toolbar);
+        mToolbar.setTitle("Attractions Locator");
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+
+        drawerFragment = (FragmentDrawer)
+                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
+        drawerFragment.setDrawerListener(this);
 
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -88,15 +102,6 @@ public class LocateAttractionActivity extends AppCompatActivity implements OnMap
         AutoCompleteTextView textView = (AutoCompleteTextView)
                 findViewById(R.id.autoCompleteTextView);
         textView.setAdapter(adapter);
-    }
-
-    protected void toChoose(View v) {
-        Intent intent = new Intent(this, ChooseDestinationsActivity.class);
-        startActivity(intent);
-    }
-
-    protected void toExpense(View v) {
-        startActivity(new Intent(this, ExpensesManagerActivity.class));
     }
 
     @Override
@@ -110,12 +115,32 @@ public class LocateAttractionActivity extends AppCompatActivity implements OnMap
                 .build();
 
         gMap.animateCamera(CameraUpdateFactory.newCameraPosition(singaporePos), 2000, null);
-//
-//        map.addMarker(new MarkerOptions()
-//                .position(new LatLng(37.4629101,-122.2449094))
-//                .title("Facebook")
-//                .snippet("Facebook HQ: Menlo Park"))
-//                .showInfoWindow();
+    }
+
+    @Override
+    public void onDrawerItemSelected(View view, int position) {
+        Intent intent = new Intent(this, LocateAttractionActivity.class);
+        switch (position) {
+            case 0:
+                intent = new Intent(this, LocateAttractionActivity.class);
+                break;
+            case 1:
+                intent = new Intent(this, ChooseDestinationsActivity.class);
+                break;
+            case 2:
+                intent = new Intent(this, ExpensesManagerActivity.class);
+                break;
+        }
+        startActivity(intent);
+    }
+
+    protected void toChoose(View v) {
+        Intent intent = new Intent(this, ChooseDestinationsActivity.class);
+        startActivity(intent);
+    }
+
+    protected void toExpense(View v) {
+        startActivity(new Intent(this, ExpensesManagerActivity.class));
     }
 
     public void search(View v) {

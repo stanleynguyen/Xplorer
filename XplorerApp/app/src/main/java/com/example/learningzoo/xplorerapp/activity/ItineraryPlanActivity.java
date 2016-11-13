@@ -1,9 +1,11 @@
-package com.example.learningzoo.xplorerapp;
+package com.example.learningzoo.xplorerapp.activity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,6 +13,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.learningzoo.xplorerapp.R;
+import com.google.android.gms.maps.GoogleMap;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,7 +29,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 
-public class ItineraryPlanActivity extends AppCompatActivity {
+public class ItineraryPlanActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
 
     private int[] destinationsQueue;
     private double budget;
@@ -32,10 +37,23 @@ public class ItineraryPlanActivity extends AppCompatActivity {
     ListView lv;
     private double cost;
 
+    private Toolbar mToolbar;
+    private FragmentDrawer drawerFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_itinerary_plan);
+        mToolbar = (Toolbar)findViewById(R.id.toolbar);
+        mToolbar.setTitle("Itinerary Planner");
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+
+        drawerFragment = (FragmentDrawer)
+                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
+        drawerFragment.setDrawerListener(this);
+
         Bundle extra = getIntent().getExtras();
         ArrayList<Integer> destinations = extra.getIntegerArrayList("DESTINATIONS");
         destinationsQueue = new int[destinations.size()];
@@ -75,6 +93,26 @@ public class ItineraryPlanActivity extends AppCompatActivity {
         cost = totalCost(itiPlan);
         ((TextView)findViewById(R.id.textView)).setText("Cost: $" + cost);
     }
+
+    @Override
+    public void onDrawerItemSelected(View view, int position) {
+        Intent intent = new Intent(this, LocateAttractionActivity.class);
+        switch (position) {
+            case 0:
+                intent = new Intent(this, LocateAttractionActivity.class);
+                break;
+            case 1:
+                intent = new Intent(this, ChooseDestinationsActivity.class);
+                break;
+            case 2:
+                intent = new Intent(this, ExpensesManagerActivity.class);
+                break;
+        }
+        startActivity(intent);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap map) {}
 
     protected static String[] generateItiItems(int[][] plan) {
         String[] result = new String[plan.length];
