@@ -16,6 +16,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -97,9 +99,8 @@ public class ItineraryPlanActivity extends AppCompatActivity {
         try {
             String data = getSharedPreferences("EXPENSES", 0).getString("saved", "DEFAULT");
             JSONArray jsonArray = new JSONArray(data);
-            Log.d("array", jsonArray.toString());
             JSONObject newObj = new JSONObject();
-            newObj.put("task", "Travelling Cost");
+            newObj.put("task", "Transportation Cost");
             newObj.put("expense", cost);
             String datetime = (new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date());
             newObj.put("time", datetime);
@@ -367,7 +368,15 @@ public class ItineraryPlanActivity extends AppCompatActivity {
         for ( int[] t : currentTrip) {
             result += COST[t[0]][t[1]][t[2]];
         }
-        return result;
+        return round(result, 2);
+    }
+
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 
     protected static int[][] flipToTaxi(int[][] currentTrip, double budget) {

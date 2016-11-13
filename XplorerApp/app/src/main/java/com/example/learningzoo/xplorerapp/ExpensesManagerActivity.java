@@ -122,7 +122,7 @@ public class ExpensesManagerActivity extends AppCompatActivity {
         double total = 0;
         for(int i = 0; i < jsonarr.length(); i++) {
             JSONObject json = jsonarr.getJSONObject(i);
-            total += json.getInt("expense");
+            total += json.getDouble("expense");
         }
         ((TextView)findViewById(R.id.textView4)).setText("Total Cost: $" + total);
     }
