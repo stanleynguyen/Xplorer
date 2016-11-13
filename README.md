@@ -3,7 +3,7 @@
 Xplorer is a travel app that help Singapore tourists do itinerary planning,
 locate popular attractions like Sentosa, and manage their trip expenses.
 
-### Team members
+## Team members
 
 1. Dominic Ong
 2. Eric Teo
@@ -12,9 +12,9 @@ locate popular attractions like Sentosa, and manage their trip expenses.
 5. Tasya Aditya Rukmana
 6. Stanley Nguyen The Hung
 
-### App description
+## App description
 
-### Technical in-depth features analysis
+## Technical in-depth features analysis
 
 **1. Daily Itinerary Planning**
   - *Greedy Search*: We start by finding the fastest route assuming user take
@@ -39,14 +39,14 @@ locate popular attractions like Sentosa, and manage their trip expenses.
  - *JSON*: We made use of JSON (JavaScript Object Notation) to locally save user entries (either directly
  from the expenses manager or the itinerary planner) to a centralised local Shared Preference.
 
-### Future improvements
+## Future improvements
 
 To further improve the app, we will include more attractions, in Singapore and other countries. Another
 improvement is to have the app available in different languages to cater to a wider range of users/tourists.
 We can also integrate real-time on-screen image translation service from Google to assist tourists. Our aim
 is for it to be an all-in-one app for tourist around the world!
 
-### Acknowledgement
+## Acknowledgement
 
 *SUTD 50.001 Instructors*:
 - Prof. Ngai-Man Cheung
