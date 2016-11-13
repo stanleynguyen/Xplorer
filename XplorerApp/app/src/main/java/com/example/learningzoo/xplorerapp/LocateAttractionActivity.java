@@ -62,6 +62,19 @@ public class LocateAttractionActivity extends AppCompatActivity implements OnMap
         TITLES.put("MP", ATTRACTIONS[8]);
     }
 
+    private static HashMap<String, String> SNIPPETS = new HashMap<String, String>();
+    static {
+        SNIPPETS.put("MBS", "10 Bayfront Avenue, 018956");
+        SNIPPETS.put("SF", "30 Raffles Ave, Singapore 039803");
+        SNIPPETS.put("VC", "1 Harbourfront Walk, Singapore 098585");
+        SNIPPETS.put("RWS", "8 Sentosa Gateway, 098269");
+        SNIPPETS.put("BTRT", "288 S Bridge Rd, 058840");
+        SNIPPETS.put("SZ", "80 Mandai Lake Rd, 729826");
+        SNIPPETS.put("USS", "8 Sentosa Gateway, 098269");
+        SNIPPETS.put("NS", "80 Mandai Lake Rd, Singapore 729826");
+        SNIPPETS.put("MP", "1 Fullerton Rd, Singapore 049213");
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,7 +126,8 @@ public class LocateAttractionActivity extends AppCompatActivity implements OnMap
         } else {
             gMap.addMarker(new MarkerOptions()
                     .position(LOCATIONS.get(searchResult))
-                    .title(TITLES.get(searchResult)))
+                    .title(TITLES.get(searchResult))
+                    .snippet(SNIPPETS.get(searchResult)))
                     .showInfoWindow();
             CameraPosition newPos = CameraPosition.builder()
                     .target(LOCATIONS.get(searchResult))
