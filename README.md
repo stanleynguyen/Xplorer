@@ -84,12 +84,12 @@ is for it to be an all-in-one app for tourist around the world!
 
 ## Team members
 
-1. Dominic Ong
-2. Eric Teo
-3. Kevin Tan
-4. Shaun Yee
-5. Tasya Aditya Rukmana
-6. Stanley Nguyen The Hung
+- Dominic Ong
+- Eric Teo
+- Kevin Tan
+- Shaun Yee
+- Tasya Aditya Rukmana
+- Stanley Nguyen The Hung
 
 ## Acknowledgement
 
