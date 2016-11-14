@@ -6,4 +6,5 @@
     android:text=""
     android:gravity="center"
     android:drawableLeft="?android:attr/listChoiceIndicatorMultiple"
+    android:textSize="18sp"
     />

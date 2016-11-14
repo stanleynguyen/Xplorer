@@ -40,7 +40,9 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginBottom="11dp" />
+                android:layout_marginBottom="11dp"
+                android:textAllCaps="false"
+                android:textSize="@dimen/button_text"/>
 
             <ListView
                 android:id="@+id/list_view"
