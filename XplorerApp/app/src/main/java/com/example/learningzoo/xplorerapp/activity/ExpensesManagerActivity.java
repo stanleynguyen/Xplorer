@@ -27,6 +27,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.learningzoo.xplorerapp.activity.ItineraryPlanActivity.round;
+
 public class ExpensesManagerActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
 
     private JSONArray jsonarr;
@@ -123,14 +125,16 @@ public class ExpensesManagerActivity extends AppCompatActivity implements Fragme
     }
 
     protected void saveNewExpense(View v) {
+        String task = ((EditText)findViewById(R.id.editText2)).getText().toString().trim();
+        String costString = ((EditText)findViewById(R.id.editText3)).getText().toString().trim();
+        if ( task.equals("") || costString.equals("") ) return;
         try {
             JSONObject json = new JSONObject();
             String datetime = (new SimpleDateFormat("yyyy/MM/dd HH:mm:ss")).format(new Date());
             json.put("time", datetime);
-            String task = ((EditText)findViewById(R.id.editText2)).getText().toString();
             ((EditText)findViewById(R.id.editText2)).setText("");
             json.put("task", task);
-            double cost = Double.parseDouble(((EditText)findViewById(R.id.editText3)).getText().toString());
+            double cost = Double.parseDouble(costString);
             ((EditText)findViewById(R.id.editText3)).setText("");
             json.put("expense", cost);
             jsonarr.put(json);
@@ -161,7 +165,7 @@ public class ExpensesManagerActivity extends AppCompatActivity implements Fragme
             JSONObject json = jsonarr.getJSONObject(i);
             total += json.getDouble("expense");
         }
-        ((TextView)findViewById(R.id.textView4)).setText("Total Cost: $" + total);
+        ((TextView)findViewById(R.id.textView4)).setText("Total Expenditure: $" + round(total, 2));
     }
 
 }
