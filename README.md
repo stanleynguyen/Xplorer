@@ -100,9 +100,9 @@ better experience for their trip.
 We decide to place most of our buttons/form-inputs/controls at the bottom of the screen
 after studying about phone-using pattern in people.
 
-![holding-phone](./docs/images/holding-phone.png)
-
-<cite>Designing Mobile Interfaces - [Steven Hoober](http://http://www.uxmatters.com/authors/archives/2012/04/steven_hoober.php)</cite>
+>![holding-phone](./docs/images/holding-phone.png)
+>
+><cite>Designing Mobile Interfaces - [Steven Hoober](http://http://www.uxmatters.com/authors/archives/2012/04/steven_hoober.php)</cite>
 
 We think that it would be more intuitive for our users if we place our buttons at the bottom
 of the screen . In addition, since our users are tourists, chances are they will be using Xplorer
