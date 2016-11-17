@@ -67,13 +67,48 @@ about overspending on their trip anymore!
 **2. Tourist Attraction Locator**
   - *Fuzzy Regular Expression*: Our search make use of the open-source Java library
   for Fuzzy Regular Expression FREJ to make close-enough predictions in case of user typo(s).
-  (e.g. "sentoszza" as refering to "Sentosa")
+  (e.g. "sentoszza" as referring to "Sentosa")
   - *Auto-Complete Text Field*: We also made use of auto-complete text field to give hints to
   our users to make the search more robust.
 
 **3. Expenses Manager**
  - *JSON*: We made use of JSON (JavaScript Object Notation) to locally save user entries (either directly
- from the expenses manager or the itinerary planner) to a centralised local Shared Preference.
+ from the expenses manager or the itinerary planner) to a centralized local Shared Preference.
+
+## Design analysis
+
+**1. Psychology of Pink Color:**
+
+>In color psychology, pink is a sign of hope. It is a positive color inspiring warm
+>and comforting feelings, a sense that everything will be okay.
+>
+>Pink calms and reassures our emotional energies, alleviating feelings of anger,
+>aggression, resentment, abandonment and neglect. Studies have confirmed that exposure
+>to large amounts of pink can have a calming effect on the nerves in people.
+>
+><cite>[Empower Yourself With Color Psychology][1]</cite>
+[1]:http://http://www.empower-yourself-with-color-psychology.com/color-pink.html
+
+The reason we use pink as theme color for Xplorer because of its calming, and reassuring
+psychological effect. Our targeted users are tourists, who will be using Xplorer far away
+from their homes. Our pink color theme will give them a sense of safety, free their minds
+from any worry that someone might have from being in a new place so our users can have a
+better experience for their trip.
+
+**2. UX Design:**
+
+We decide to place most of our buttons/form-inputs/controls at the bottom of the screen
+after studying about phone-using pattern in people.
+
+![holding-phone](./docs/images/holding-phone.png)
+
+<cite>Designing Mobile Interfaces - [Steven Hoober](http://http://www.uxmatters.com/authors/archives/2012/04/steven_hoober.php)</cite>
+
+We think that it would be more intuitive for our users if we place our buttons at the bottom
+of the screen . In addition, since our users are tourists, chances are they will be using Xplorer
+on the go thus holding their phones with only one hand. Placing our control buttons at bottom
+of the screen will help a great deal to provide a better user experience.
+
 
 ## Future improvements
 
