@@ -86,7 +86,7 @@ about overspending on their trip anymore!
 >aggression, resentment, abandonment and neglect. Studies have confirmed that exposure
 >to large amounts of pink can have a calming effect on the nerves in people.
 >
-><cite>[Empower Yourself With Color Psychology][1]</cite>
+>*[Empower Yourself With Color Psychology][1]*
 [1]:http://http://www.empower-yourself-with-color-psychology.com/color-pink.html
 
 The reason we use pink as theme color for Xplorer because of its calming, and reassuring
@@ -102,7 +102,7 @@ after studying about phone-using pattern in people.
 
 >![holding-phone](./docs/images/holding-phone.png)
 >
-><cite>Designing Mobile Interfaces - [Steven Hoober][2]</cite>
+>*Designing Mobile Interfaces - [Steven Hoober][2]*
 [2]:http://http://www.uxmatters.com/authors/archives/2012/04/steven_hoober.php
 
 We think that it would be more intuitive for our users if we place our buttons at the bottom
